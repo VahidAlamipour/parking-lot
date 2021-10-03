@@ -1,7 +1,11 @@
 
 //#region imports
 import Ticket from './ticket';
-import { PARKING_CAPACITY, LOCAL_STORAGE_KEY, ERROR_PARKING_FULL } from './constants';
+import {
+    PARKING_CAPACITY, LOCAL_STORAGE_KEY,
+    ERROR_PARKING_FULL, NUM_SECOND_PART_OF_BARCODE,
+    ERROR_BARCODE_NOT_VALID
+} from './constants';
 import moment from 'moment';
 
 //#endregion
@@ -30,9 +34,24 @@ class Parking {
             _saveRecordsToLocalStorage();
             return ticket.barcode;
         } catch (error) {
-            console.log(error.message);
+            throw error;
         }
     }
+
+    calculatePrice(barcode) {
+        const subStr = barcode.slice(-NUM_SECOND_PART_OF_BARCODE);
+        const index = parseInt(subStr);
+        const ticket = this.records[index];
+        if(ticket && ticket.barcode === barcode){
+            const different = moment().diff(ticket._entranceTime);
+            const diffMin = Math.ceil(different / 1000 / 60 / 60);
+            const cost = diffMin * 2;
+            return `€ ${cost}`
+        }
+        throw new Error(ERROR_BARCODE_NOT_VALID);
+    }
+
+
 }
 
 //#region exports

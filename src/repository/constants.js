@@ -4,3 +4,4 @@ export const DATE_TIME_FORMAT='YYYY M D H:m';
 export const NUM_BARCODE_DIGITS=16;
 export const NUM_SECOND_PART_OF_BARCODE=2;
 export const ERROR_PARKING_FULL='Parking lot is full. Sorry!';
+export const ERROR_BARCODE_NOT_VALID='Barcode is not valid!';
