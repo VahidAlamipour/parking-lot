@@ -41,8 +41,7 @@ class Parking {
     calculatePrice(barcode) {
         try {
             const ticket = _getTicketFromList(barcode);
-            if (ticket.paid)
-            {
+            if (ticket.paid) {
                 return RECEIPT_ISSUER(ticket);
             }
             const EntryTime = ticket._paymentTime || ticket._entranceTime;
@@ -68,20 +67,25 @@ class Parking {
     }
     getTicketState(barcode) {
         try {
-            const ticket = _getTicketFromList(barcode);
+            let ticket = _getTicketFromList(barcode);
             if (!ticket.paid)
                 throw new Error(ERROR_PAYMENT_NOT_Done);
-            if(!ticket.paymentTimeStillValid())
-                throw new Error(ERROR_PAYMENT_IS_EXPIRED)
+            if (!ticket.paymentTimeStillValid())
+                throw new Error(ERROR_PAYMENT_IS_EXPIRED);
+            this.records[ticket._index] = undefined;
             return true;
         } catch (error) {
             throw error;
-
         }
-
-
-
-
+    }
+    getFreeSpaces() {
+        let counter = 0;
+        this.records.forEach(item => {
+            if (item === undefined) {
+                counter++;
+            }
+        });
+        return counter;
     }
 }
 

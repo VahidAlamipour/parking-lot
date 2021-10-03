@@ -17,7 +17,7 @@ class Ticket {
         this._paymentTime = paymentTime ? new moment(paymentTime, DATE_TIME_FORMAT) : undefined;
     }
     set paymentMethod(value) {
-        if (value && value > 0 && value < PAYMENT_METHOD_ENUM.length) {
+        if (value !== undefined && value > -1 && value < PAYMENT_METHOD_ENUM.length) {
             this._paymentMethod = value;
         } else {
             throw new Error(ERROR_PAYMENT_METHOD_NOT_VALID);

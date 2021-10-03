@@ -8,3 +8,5 @@ window.payTicket = (barcode,paymentTicket)=> parkingLot.payTicket(barcode,paymen
 
 window.getTicketState = (barcode)=>parkingLot.getTicketState(barcode);
 
+window.getFreeSpaces = ()=>parkingLot.getFreeSpaces();
+
