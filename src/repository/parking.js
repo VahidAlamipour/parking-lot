@@ -38,6 +38,9 @@ class Parking {
             throw error;
         }
     }
+    filledSpotes() {
+        return this.records.filter(x => x !== undefined);
+    }
     calculatePrice(barcode) {
         try {
             const ticket = _getTicketFromList(barcode);
@@ -60,7 +63,7 @@ class Parking {
             ticket.paymentMethod = paymentMethod;
             ticket.paymentTime = moment();
             _saveRecordsToLocalStorage();
-            return `Ticket ${ticket.barcode} marked is paid`
+            return `Ticket ${ticket.barcode} marked as paid`
         } catch (error) {
             throw error;
         }
@@ -73,6 +76,7 @@ class Parking {
             if (!ticket.paymentTimeStillValid())
                 throw new Error(ERROR_PAYMENT_IS_EXPIRED);
             this.records[ticket._index] = undefined;
+            _saveRecordsToLocalStorage();
             return true;
         } catch (error) {
             throw error;
@@ -80,11 +84,12 @@ class Parking {
     }
     getFreeSpaces() {
         let counter = 0;
-        this.records.forEach(item => {
+        for (let index = 0; index < this.records.length; index++) {
+            const item = this.records[index];
             if (item === undefined) {
                 counter++;
             }
-        });
+        }
         return counter;
     }
 }
@@ -106,13 +111,15 @@ const _getFirstEmptyCell = () => {
 }
 const _saveRecordsToLocalStorage = () => {
     const jsonRecords = parkingLot.records.map((record) => {
-        return {
-            index: record._index,
-            entranceTime: record.entranceTime,
-            preBarcode: record._prebarcode,
-            paymentMethod: record._paymentMethod,
-            paymentTime: record.paymentTime
-        }
+        if (record)
+            return {
+                index: record._index,
+                entranceTime: record.entranceTime,
+                preBarcode: record._prebarcode,
+                paymentMethod: record._paymentMethod,
+                paymentTime: record.paymentTime
+            }
+        else return undefined;
     });
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(jsonRecords));
 }

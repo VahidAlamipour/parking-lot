@@ -15,6 +15,12 @@ export const ERROR_BARCODE_NOT_VALID = 'Barcode is not valid!';
 export const ERROR_PAYMENT_METHOD_NOT_VALID = 'Payment method is not valid!';
 export const ERROR_PAYMENT_NOT_Done = 'Payment is not done yet!';
 export const ERROR_PAYMENT_IS_EXPIRED = 'Your check-out time has expired. Please pay again.';
+export const MESSAGE_TYPE = Object.freeze({success:'success',error:'danger'});
+export const VIEW_MODE = Object.freeze({list:1,form:2});
+export const FORM_MODE = Object.freeze({calculatePrice:1,payTicket:2,exitParking:3});
+export const FORM_MODE_TITLE = Object.freeze({calculatePrice:"Calculate Price",payTicket:"Pay Ticket",exitParking:"Exit Parking"});
+
+
 
 
 
