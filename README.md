@@ -4,3 +4,6 @@ This is a test project which I have created by WebPack base on JaveScript All th
 
 A simple UI implemented by React Just for using functions of course UI side can me very better but in this short time my focus was mostly on repository side.
 
+For running in development mode just run "npm start"
+For running in production mode please use "npm run build"
+
