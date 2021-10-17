@@ -87,6 +87,8 @@ hour)
 otherwise the person needs to make another payment.
 ● Create a function that returns the state
 
+getFreeSpaces();
+
 --------------------------------------------------------------------------
 
 
